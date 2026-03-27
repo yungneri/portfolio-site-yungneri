@@ -1506,11 +1506,13 @@ code {
 
   .hero-actions {
     margin-top: 1.05rem;
+    justify-content: center;
   }
 
   .hero-actions .button-quote {
     width: min(100%, 290px);
     min-height: 58px;
+    margin-inline: auto;
   }
 
   .hero-highlights {
