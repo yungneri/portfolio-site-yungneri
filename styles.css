@@ -1655,8 +1655,8 @@ code {
 
   .site-nav {
     width: 100%;
-    justify-content: space-between;
-    gap: 0.8rem;
+    justify-content: center;
+    gap: 0.65rem;
   }
 
   .site-nav a {
