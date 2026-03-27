@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Yung Neri | Video & Photography</title>
+    <meta
+      name="description"
+      content="Minimal cinematic portfolio for videography, photography, and visual storytelling."
+    />
+    <link rel="preload" href="assets/videos/cyber-real-local.mp4" as="video" type="video/mp4" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <svg class="icon-defs" aria-hidden="true" focusable="false">
+      <symbol id="icon-instagram" viewBox="0 0 24 24">
+        <path
+          d="M7.5 2h9A5.5 5.5 0 0 1 22 7.5v9A5.5 5.5 0 0 1 16.5 22h-9A5.5 5.5 0 0 1 2 16.5v-9A5.5 5.5 0 0 1 7.5 2Zm0 2A3.5 3.5 0 0 0 4 7.5v9A3.5 3.5 0 0 0 7.5 20h9a3.5 3.5 0 0 0 3.5-3.5v-9A3.5 3.5 0 0 0 16.5 4h-9Zm9.75 1.5a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z"
+        />
+      </symbol>
+      <symbol id="icon-youtube" viewBox="0 0 24 24">
+        <path
+          d="M21.58 7.19a2.92 2.92 0 0 0-2.05-2.06C17.72 4.6 12 4.6 12 4.6s-5.72 0-7.53.53A2.92 2.92 0 0 0 2.42 7.2 30.05 30.05 0 0 0 2 12a30.05 30.05 0 0 0 .42 4.8 2.92 2.92 0 0 0 2.05 2.06c1.81.53 7.53.53 7.53.53s5.72 0 7.53-.53a2.92 2.92 0 0 0 2.05-2.06A30.04 30.04 0 0 0 22 12a30.04 30.04 0 0 0-.42-4.81ZM10 15.5v-7l6 3.5-6 3.5Z"
+        />
+      </symbol>
+      <symbol id="icon-tiktok" viewBox="0 0 24 24">
+        <path
+          d="M14.67 2h2.96a4.9 4.9 0 0 0 4.37 4.36v3a7.8 7.8 0 0 1-4.33-1.3v7.18a6.24 6.24 0 1 1-6.24-6.24c.35 0 .7.03 1.04.09v3.1a3.44 3.44 0 1 0 2.2 3.2V2Z"
+        />
+      </symbol>
+      <symbol id="icon-facebook" viewBox="0 0 24 24">
+        <path
+          d="M13.5 22v-8.2h2.77l.42-3.2H13.5V8.56c0-.93.27-1.56 1.6-1.56h1.71V4.14c-.3-.04-1.32-.14-2.52-.14-2.5 0-4.22 1.52-4.22 4.31v2.3H7.24v3.2h2.83V22h3.43Z"
+        />
+      </symbol>
+      <symbol id="icon-linkedin" viewBox="0 0 24 24">
+        <path
+          d="M5.34 8.34a1.9 1.9 0 1 1 0-3.8 1.9 1.9 0 0 1 0 3.8ZM3.8 9.78h3.08V20H3.8V9.78Zm5.02 0h2.95v1.4h.04c.41-.78 1.41-1.6 2.9-1.6 3.1 0 3.67 2.04 3.67 4.7V20H15.3v-5.02c0-1.2-.02-2.73-1.66-2.73-1.67 0-1.92 1.3-1.92 2.64V20H8.82V9.78Z"
+        />
+      </symbol>
+      <symbol id="icon-mail" viewBox="0 0 24 24">
+        <path
+          d="M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Zm17 3.24-7.35 5.88a1 1 0 0 1-1.3 0L4 8.24V17h16V8.24Zm-1.44-1.24H5.44L12 12.25 18.56 7Z"
+        />
+      </symbol>
+      <symbol id="icon-arrow" viewBox="0 0 24 24">
+        <path
+          d="M5 12h10.17l-3.59-3.59L13 7l6 6-6 6-1.42-1.41L15.17 14H5v-2Z"
+        />
+      </symbol>
+      <symbol id="icon-chevron" viewBox="0 0 24 24">
+        <path
+          d="M9 5l7 7-7 7"
+          fill="none"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="1.7"
+        />
+      </symbol>
+    </svg>
+
+    <div class="page-shell">
+      <div class="noise"></div>
+      <header class="site-header">
+        <a class="brand" href="#top">
+          <img class="brand-logo" src="assets/images/yungneri-logo.png" alt="Yung Neri logo" />
+        </a>
+        <nav class="site-nav">
+          <a class="is-active" href="#top">Home</a>
+          <a href="#films">Portfolio</a>
+          <a href="#contact">Contact</a>
+        </nav>
+        <div class="header-socials" id="header-socials"></div>
+      </header>
+
+      <main id="top">
+        <section class="hero">
+          <div class="hero-media">
+            <video
+              id="hero-video"
+              class="hero-video"
+              autoplay
+              muted
+              playsinline
+              loop
+              preload="auto"
+              poster="assets/images/aesthetic-reference.jpg"
+            >
+              <source src="assets/videos/cyber-real-local.mp4" type="video/mp4" />
+            </video>
+            <div class="hero-scrim"></div>
+            <div class="hero-grid"></div>
+            <div class="hero-copy">
+              <p class="eyebrow">Your vision, brought to life.</p>
+              <div class="hero-title-row">
+                <div class="hero-title-lockup">
+                  <h1>
+                    <span>Video</span>
+                    <span>Photography</span>
+                  </h1>
+                  <p class="hero-tagline">Cinematic visuals for brands, events, reels, and standout creative campaigns.</p>
+                </div>
+              </div>
+              <p class="hero-text">
+                Branded visuals, event coverage, social reels, and polished edits built with neon
+                atmosphere, sharp storytelling, and clean composition.
+              </p>
+
+              <div class="hero-actions">
+                <a class="button button-quote button-trace" href="#contact">Get a Quote</a>
+              </div>
+
+              <div class="hero-highlights">
+                <div class="hero-about-main">
+                  <span>About Me</span>
+                  <p>
+                    I grew up making videos and chasing the feeling that a simple moment could
+                    become something cinematic. That early love for creating is what shaped the
+                    way I tell stories now.
+                  </p>
+                </div>
+                <div>
+                  <span>My Story</span>
+                  <p>
+                    Where I came from is part of how I see the world, and that perspective shows
+                    up in the mood, detail, and emotion I try to bring into every frame.
+                  </p>
+                </div>
+                <div>
+                  <span>Now In America</span>
+                  <p>
+                    Today I’m pursuing videography and photography as a real career here in
+                    America, building a path from the passion I grew up with into the work I do
+                    for people, brands, and events.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section section-films" id="films">
+          <div class="section-heading section-heading-carousel">
+            <div>
+              <p class="eyebrow">Selected Work</p>
+              <h2>Every frame is built to hold attention before the scroll moves on.</h2>
+            </div>
+            <div class="carousel-controls" aria-label="Reel navigation">
+              <button
+                class="carousel-arrow"
+                type="button"
+                data-carousel-target="reels-track"
+                data-direction="prev"
+                aria-label="Scroll reels left"
+              >
+                <svg aria-hidden="true"><use href="#icon-chevron"></use></svg>
+              </button>
+              <button
+                class="carousel-arrow"
+                type="button"
+                data-carousel-target="reels-track"
+                data-direction="next"
+                aria-label="Scroll reels right"
+              >
+                <svg aria-hidden="true"><use href="#icon-chevron"></use></svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="carousel-shell">
+            <div class="carousel-track carousel-track-reels" id="reels-track" data-carousel-track>
+              <article class="carousel-card reel-card">
+                <video autoplay muted loop playsinline preload="metadata">
+                  <source src="assets/videos/cyber-real-local.mp4" type="video/mp4" />
+                </video>
+                <div class="carousel-meta">
+                  <span>Creative Direction</span>
+                  <p>Moody neon visuals with a stylized night-drive atmosphere.</p>
+                </div>
+              </article>
+
+              <article class="carousel-card reel-card">
+                <video autoplay muted loop playsinline preload="metadata">
+                  <source src="assets/videos/store-promotion-local.mp4" type="video/mp4" />
+                </video>
+                <div class="carousel-meta">
+                  <span>Brand Content</span>
+                  <p>Fast commercial pacing designed for product, location, and online attention.</p>
+                </div>
+              </article>
+
+              <article class="carousel-card reel-card">
+                <video autoplay muted loop playsinline preload="metadata">
+                  <source src="assets/videos/flower-expo-2025-reel-local.mp4" type="video/mp4" />
+                </video>
+                <div class="carousel-meta">
+                  <span>Events</span>
+                  <p>Coverage that captures the atmosphere, crowd flow, and key brand moments.</p>
+                </div>
+              </article>
+
+              <article class="carousel-card reel-card">
+                <video autoplay muted loop playsinline preload="metadata">
+                  <source src="assets/videos/froskate-video-local.mp4" type="video/mp4" />
+                </video>
+                <div class="carousel-meta">
+                  <span>Lifestyle</span>
+                  <p>Movement-driven visuals with edge, rhythm, and texture.</p>
+                </div>
+              </article>
+
+              <article class="carousel-card reel-card">
+                <video autoplay muted loop playsinline preload="metadata">
+                  <source src="assets/videos/2025-end-year-local.mp4" type="video/mp4" />
+                </video>
+                <div class="carousel-meta">
+                  <span>Recap Film</span>
+                  <p>Long-form storytelling shaped into a polished retrospective visual piece.</p>
+                </div>
+              </article>
+
+              <article class="carousel-card reel-card">
+                <video autoplay muted loop playsinline preload="metadata">
+                  <source src="assets/videos/untitled-local.mp4" type="video/mp4" />
+                </video>
+                <div class="carousel-meta">
+                  <span>Editorial Motion</span>
+                  <p>Open-format storytelling for cinematic edits, reels, and visual experiments.</p>
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section class="section stills-section" id="stills">
+          <div class="section-heading section-heading-carousel">
+            <div>
+              <p class="eyebrow">Photo Portfolio</p>
+              <h2>Still images with the same glow, depth, and mood as the motion work.</h2>
+            </div>
+            <div class="carousel-controls" aria-label="Photo navigation">
+              <button
+                class="carousel-arrow"
+                type="button"
+                data-carousel-target="photos-track"
+                data-direction="prev"
+                aria-label="Scroll photos left"
+              >
+                <svg aria-hidden="true"><use href="#icon-chevron"></use></svg>
+              </button>
+              <button
+                class="carousel-arrow"
+                type="button"
+                data-carousel-target="photos-track"
+                data-direction="next"
+                aria-label="Scroll photos right"
+              >
+                <svg aria-hidden="true"><use href="#icon-chevron"></use></svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="carousel-shell">
+            <div class="carousel-track carousel-track-photos" id="photos-track" data-carousel-track>
+              <article class="carousel-card photo-card">
+                <img src="assets/photos/midnight-vette.jpg" alt="Night automotive photograph of a Corvette in the rain" loading="lazy" />
+                <div class="carousel-meta">
+                  <span>Automotive</span>
+                  <p>Rain-lit bodywork, cold headlights, and a low stance framed like a film still.</p>
+                </div>
+              </article>
+
+              <article class="carousel-card photo-card">
+                <img class="photo-focus-high" src="assets/photos/skyline-lounge.jpg" alt="Luxury living room with wide city views through tall windows" loading="lazy" />
+                <div class="carousel-meta">
+                  <span>Interiors</span>
+                  <p>Clean lines, soft daylight, and a high-rise living space with open city views.</p>
+                </div>
+              </article>
+
+              <article class="carousel-card photo-card">
+                <img class="photo-focus-high" src="assets/photos/spa-suite.jpg" alt="Modern bathroom interior with tub and warm wood flooring" loading="lazy" />
+                <div class="carousel-meta">
+                  <span>Interiors</span>
+                  <p>Minimal luxury details and balanced light across a polished primary bath.</p>
+                </div>
+              </article>
+
+              <article class="carousel-card photo-card">
+                <img class="photo-focus-top" src="assets/photos/bay-view-bedroom.jpg" alt="Bright bedroom with balcony doors and city view" loading="lazy" />
+                <div class="carousel-meta">
+                  <span>Interiors</span>
+                  <p>Wide framing that lets the room, light, and skyline breathe together.</p>
+                </div>
+              </article>
+
+              <article class="carousel-card photo-card">
+                <img class="photo-focus-top" src="assets/photos/open-balcony.jpg" alt="High-rise balcony overlooking water and city buildings" loading="lazy" />
+                <div class="carousel-meta">
+                  <span>Architecture</span>
+                  <p>Exterior angles that hold the skyline and water without losing depth.</p>
+                </div>
+              </article>
+
+              <article class="carousel-card photo-card">
+                <img class="photo-focus-midhigh" src="assets/photos/butterfly-pause.jpg" alt="Butterfly resting beside blue nectar in green foliage" loading="lazy" />
+                <div class="carousel-meta">
+                  <span>Nature Detail</span>
+                  <p>Quiet macro framing with layered greens and one small burst of color.</p>
+                </div>
+              </article>
+
+              <article class="carousel-card photo-card">
+                <img class="photo-focus-portrait" src="assets/photos/gold-link-portrait.jpg" alt="Portrait of a man holding up a gold chain under warm event lighting" loading="lazy" />
+                <div class="carousel-meta">
+                  <span>Portraits</span>
+                  <p>Character-driven portraiture with warm event light and sharp focus on expression.</p>
+                </div>
+              </article>
+
+              <article class="carousel-card photo-card">
+                <img src="assets/photos/flight-time.jpg" alt="Motocross rider upside down in the sky during a jump" loading="lazy" />
+                <div class="carousel-meta">
+                  <span>Motorsports</span>
+                  <p>Suspended action frozen against open sky for a clean, graphic sports frame.</p>
+                </div>
+              </article>
+
+              <article class="carousel-card photo-card">
+                <img src="assets/photos/helmet-study.jpg" alt="Close-up detail photograph of a helmet resting on a dashboard" loading="lazy" />
+                <div class="carousel-meta">
+                  <span>Automotive Detail</span>
+                  <p>Tight composition built around gear, reflections, and sharp design lines.</p>
+                </div>
+              </article>
+
+              <article class="carousel-card photo-card">
+                <img src="assets/photos/blue-corvette-detail.jpg" alt="Blue Corvette photographed from a low angle at an expo" loading="lazy" />
+                <div class="carousel-meta">
+                  <span>Automotive</span>
+                  <p>Bold color, aggressive angle, and event energy locked into one frame.</p>
+                </div>
+              </article>
+
+              <article class="carousel-card photo-card">
+                <img class="photo-focus-portrait" src="assets/photos/garden-portrait.jpg" alt="Portrait of a woman seated in a bright garden surrounded by plants" loading="lazy" />
+                <div class="carousel-meta">
+                  <span>Portraits</span>
+                  <p>Soft natural light and framing that turns a calm pose into a cinematic portrait.</p>
+                </div>
+              </article>
+
+              <article class="carousel-card photo-card">
+                <img src="assets/photos/cybertruck-neon.jpg" alt="Cybertruck photographed with stylized graffiti behind it" loading="lazy" />
+                <div class="carousel-meta">
+                  <span>Automotive</span>
+                  <p>Hard lines, reflective surfaces, and graphic color built to stop the scroll.</p>
+                </div>
+              </article>
+
+              <article class="carousel-card photo-card">
+                <img src="assets/photos/dj-controls.jpg" alt="Close-up of hands mixing on DJ equipment in low light" loading="lazy" />
+                <div class="carousel-meta">
+                  <span>Music / Nightlife</span>
+                  <p>Close detail and ambient glow that capture the pulse of the room.</p>
+                </div>
+              </article>
+
+              <article class="carousel-card photo-card">
+                <img class="photo-focus-high" src="assets/photos/skyline-signal.jpg" alt="Night skyline with bright beam of light from a skyscraper" loading="lazy" />
+                <div class="carousel-meta">
+                  <span>City Nights</span>
+                  <p>Long-exposure motion and skyline contrast finished with a neon night palette.</p>
+                </div>
+              </article>
+
+              <article class="carousel-card photo-card">
+                <img class="photo-focus-high" src="assets/photos/neon-window.jpg" alt="Tall building at night with a single magenta-lit window" loading="lazy" />
+                <div class="carousel-meta">
+                  <span>City Nights</span>
+                  <p>Minimal city geometry with one magenta accent cutting through the dark.</p>
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section class="section contact-section" id="contact">
+          <div class="contact-intro">
+            <p class="eyebrow">Contact</p>
+            <h2>Ready to shoot something unforgettable?</h2>
+            <p>
+              Send a quick project brief and the form will open your email app with everything
+              filled in for you.
+            </p>
+          </div>
+
+          <div class="contact-layout">
+            <form class="contact-form" id="contact-form">
+              <label>
+                Name
+                <input type="text" name="name" placeholder="Your name" required />
+              </label>
+
+              <label>
+                Email
+                <input type="email" name="email" placeholder="you@example.com" required />
+              </label>
+
+              <label>
+                Project type
+                <select name="project">
+                  <option>Videography</option>
+                  <option>Photography</option>
+                  <option>Video + Photography</option>
+                  <option>Editing Only</option>
+                </select>
+              </label>
+
+              <label>
+                Details
+                <textarea
+                  name="message"
+                  rows="5"
+                  placeholder="Tell me about the shoot, timeline, and the vibe you want."
+                  required
+                ></textarea>
+              </label>
+
+              <button class="button button-secondary button-trace" type="submit">
+                <svg><use href="#icon-mail"></use></svg>
+                Contact Now
+              </button>
+            </form>
+
+            <div class="contact-card">
+              <div class="contact-block">
+                <span>Email</span>
+                <a href="mailto:yungnerivideo@gmail.com">yungnerivideo@gmail.com</a>
+              </div>
+
+              <div class="contact-block">
+                <span>Services</span>
+                <p>Promo videos, event coverage, reels, branded visuals, photo sets, edits.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
