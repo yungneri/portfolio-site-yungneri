@@ -91,7 +91,7 @@ textarea {
   --trace-size: 1px;
   isolation: isolate;
   display: grid;
-  grid-template-columns: auto 1fr auto;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
   align-items: center;
   gap: 1rem;
   padding: 1rem clamp(1.2rem, 3vw, 2.8rem) 1.05rem;
@@ -181,6 +181,7 @@ textarea {
 .brand {
   display: inline-flex;
   align-items: center;
+  justify-self: start;
   flex-shrink: 0;
   line-height: 0;
 }
@@ -1292,7 +1293,7 @@ code {
   .site-header {
     gap: 0.9rem;
     padding-inline: 1.2rem;
-    grid-template-columns: auto 1fr auto;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
   }
 
   .brand-logo {
