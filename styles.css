@@ -22,11 +22,13 @@
 
 html {
   scroll-behavior: smooth;
+  background: #05070b;
 }
 
 body {
   margin: 0;
   min-height: 100vh;
+  min-height: 100dvh;
   color: var(--text);
   font-family: "Avenir Next", "Avenir Next Condensed", "Helvetica Neue", sans-serif;
   -webkit-text-size-adjust: 100%;
@@ -64,6 +66,8 @@ textarea {
 
 .page-shell {
   position: relative;
+  min-height: 100dvh;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 
 .noise,
@@ -1046,7 +1050,7 @@ figcaption {
 }
 
 .contact-section {
-  padding-bottom: 5rem;
+  padding-bottom: calc(5rem + env(safe-area-inset-bottom, 0px));
 }
 
 .contact-layout {
@@ -1495,20 +1499,27 @@ code {
 
   .hero h1 {
     max-width: none;
-    font-size: clamp(2.65rem, 16vw, 4.1rem);
-    line-height: 0.86;
+    font-size: clamp(2.25rem, 13.5vw, 3.45rem);
+    line-height: 0.88;
+    letter-spacing: -0.02em;
+  }
+
+  .hero h1 span {
+    overflow-wrap: anywhere;
   }
 
   .hero-tagline {
     margin-top: 0.7rem;
-    font-size: 0.9rem;
-    line-height: 1.25;
+    max-width: 22rem;
+    font-size: 0.82rem;
+    line-height: 1.28;
   }
 
   .hero-text {
     margin-top: 1rem;
-    font-size: 0.96rem;
-    line-height: 1.5;
+    max-width: 22rem;
+    font-size: 0.92rem;
+    line-height: 1.48;
   }
 
   .hero-actions {
@@ -1691,17 +1702,24 @@ code {
   }
 
   .hero h1 {
-    font-size: clamp(2.2rem, 16vw, 3.3rem);
+    font-size: clamp(1.9rem, 11.4vw, 2.7rem);
+    line-height: 0.9;
   }
 
   .hero-tagline {
-    font-size: 0.84rem;
+    max-width: 18rem;
+    font-size: 0.75rem;
+    line-height: 1.26;
   }
 
   .hero-text,
   .contact-intro p,
   .carousel-meta p {
     font-size: 0.9rem;
+  }
+
+  .hero-text {
+    max-width: 18rem;
   }
 
   .carousel-track-reels,
@@ -1748,6 +1766,117 @@ code {
 
   .social-links {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-height: 520px) and (orientation: landscape) {
+  .site-header {
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 0.75rem;
+    padding: calc(0.5rem + env(safe-area-inset-top, 0px)) 0.85rem 0.6rem;
+  }
+
+  .brand-logo {
+    height: 34px;
+    max-width: 96px;
+  }
+
+  .site-nav {
+    width: auto;
+    justify-content: center;
+    justify-self: center;
+    flex-wrap: nowrap;
+    gap: 0.95rem;
+  }
+
+  .site-nav a {
+    font-size: 0.76rem;
+    padding: 0.35rem 0;
+  }
+
+  .header-socials {
+    width: auto;
+    display: grid;
+    grid-template-columns: repeat(5, 34px);
+    justify-self: end;
+    gap: 0.35rem;
+  }
+
+  .header-socials .social-link {
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+  }
+
+  .hero,
+  .section,
+  .film-strip {
+    width: calc(100% - 0.9rem);
+  }
+
+  .hero {
+    padding-top: 0.35rem;
+    padding-bottom: 1.15rem;
+  }
+
+  .hero-media {
+    min-height: auto;
+    padding: 3rem 0.95rem 0.95rem;
+    border-radius: 22px;
+  }
+
+  .hero-copy {
+    width: 100%;
+    max-width: 34rem;
+  }
+
+  .hero h1 {
+    max-width: 8.6ch;
+    font-size: clamp(2rem, 6vw, 3.25rem);
+    line-height: 0.9;
+  }
+
+  .hero-tagline {
+    max-width: 26rem;
+    margin-top: 0.55rem;
+    font-size: 0.76rem;
+    line-height: 1.22;
+  }
+
+  .hero-text {
+    max-width: 28rem;
+    margin-top: 0.8rem;
+    font-size: 0.88rem;
+    line-height: 1.42;
+  }
+
+  .hero-actions {
+    margin-top: 0.8rem;
+  }
+
+  .hero-actions .button-quote {
+    width: min(100%, 230px);
+    min-height: 50px;
+  }
+
+  .hero-highlights {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.65rem;
+    margin-top: 1rem;
+  }
+
+  .hero-highlights div {
+    padding-top: 0.55rem;
+  }
+
+  .hero-highlights p {
+    font-size: 0.82rem;
+    line-height: 1.38;
+  }
+
+  .section {
+    padding-top: 3rem;
   }
 }
 
