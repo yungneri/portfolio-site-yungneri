@@ -1658,6 +1658,17 @@ code {
     border-radius: 24px;
   }
 
+  .hero-scrim {
+    background:
+      linear-gradient(180deg, rgba(2, 4, 8, 0.06) 0%, rgba(4, 7, 12, 0.12) 12%, rgba(5, 7, 11, 0.24) 28%, rgba(5, 7, 11, 0.58) 44%, rgba(5, 7, 11, 0.9) 54%, rgba(5, 7, 11, 0.98) 61%, rgba(5, 7, 11, 1) 68%, rgba(5, 7, 11, 1) 100%),
+      linear-gradient(90deg, rgba(5, 7, 11, 0.3) 0%, rgba(5, 7, 11, 0.08) 13%, rgba(5, 7, 11, 0.04) 24%, rgba(5, 7, 11, 0.04) 76%, rgba(5, 7, 11, 0.08) 87%, rgba(5, 7, 11, 0.3) 100%),
+      radial-gradient(circle at top left, rgba(5, 7, 11, 0.4), transparent 18%),
+      radial-gradient(circle at top right, rgba(5, 7, 11, 0.4), transparent 18%),
+      radial-gradient(circle at bottom left, rgba(5, 7, 11, 0.84), transparent 26%),
+      radial-gradient(circle at bottom right, rgba(5, 7, 11, 0.84), transparent 26%),
+      linear-gradient(120deg, rgba(104, 246, 255, 0.1), transparent 34%, rgba(255, 76, 207, 0.12) 76%);
+  }
+
   .hero-copy {
     width: 100%;
   }
