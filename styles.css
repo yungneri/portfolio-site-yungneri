@@ -329,21 +329,51 @@ textarea {
   display: none;
 }
 
+.hero-media {
+  background:
+    linear-gradient(180deg, rgba(8, 12, 18, 0.22) 0%, rgba(5, 7, 11, 0.82) 72%, rgba(5, 7, 11, 1) 100%),
+    linear-gradient(145deg, rgba(6, 11, 18, 0.98), rgba(10, 8, 16, 0.98));
+}
+
 .hero-video {
   position: absolute;
-  inset: 0;
-  height: 100%;
-  object-fit: cover;
-  transform: scale(1.045);
-  filter: saturate(1.04) contrast(1.03) blur(7px);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: contain;
+  transform: none;
+  filter: saturate(1.04) contrast(1.04);
   will-change: transform;
+}
+
+.hero-video-embed {
+  inset: auto;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  min-width: 0;
+  min-height: 0;
+  max-width: none;
+  border: 0;
+  pointer-events: none;
+  filter: saturate(1.02) contrast(1.04);
+  transform: none;
 }
 
 .hero-scrim {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(180deg, rgba(2, 4, 8, 0.2) 0%, rgba(4, 7, 12, 0.28) 30%, rgba(5, 7, 11, 0.88) 100%),
+    linear-gradient(180deg, rgba(2, 4, 8, 0.04) 0%, rgba(4, 7, 12, 0.08) 16%, rgba(5, 7, 11, 0.2) 30%, rgba(5, 7, 11, 0.48) 45%, rgba(5, 7, 11, 0.8) 56%, rgba(5, 7, 11, 0.97) 64%, rgba(5, 7, 11, 1) 72%, rgba(5, 7, 11, 1) 100%),
+    linear-gradient(90deg, rgba(5, 7, 11, 0.34) 0%, rgba(5, 7, 11, 0.08) 12%, rgba(5, 7, 11, 0.04) 24%, rgba(5, 7, 11, 0.04) 76%, rgba(5, 7, 11, 0.08) 88%, rgba(5, 7, 11, 0.34) 100%),
+    radial-gradient(circle at top left, rgba(5, 7, 11, 0.48), transparent 18%),
+    radial-gradient(circle at top right, rgba(5, 7, 11, 0.48), transparent 18%),
+    radial-gradient(circle at bottom left, rgba(5, 7, 11, 0.72), transparent 24%),
+    radial-gradient(circle at bottom right, rgba(5, 7, 11, 0.72), transparent 24%),
     linear-gradient(120deg, rgba(104, 246, 255, 0.12), transparent 34%, rgba(255, 76, 207, 0.16) 76%);
 }
 
@@ -865,6 +895,8 @@ figcaption {
 
 .carousel-track-reels {
   grid-auto-columns: minmax(320px, 38vw);
+  align-items: stretch;
+  min-height: clamp(340px, 44vw, 520px);
 }
 
 .carousel-track-photos {
@@ -883,14 +915,88 @@ figcaption {
 }
 
 .reel-card {
+  display: block;
+  height: clamp(340px, 44vw, 520px);
   min-height: 440px;
 }
 
-.reel-card video,
+.reel-card img,
 .photo-placeholder {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.reel-media-shell {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at top left, rgba(104, 246, 255, 0.18), transparent 46%),
+    linear-gradient(160deg, rgba(4, 8, 14, 0.98), rgba(9, 8, 16, 0.94));
+}
+
+.reel-media-shell::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(6, 9, 14, 0.06), rgba(5, 7, 11, 0.52)),
+    linear-gradient(120deg, rgba(255, 76, 207, 0.08), rgba(104, 246, 255, 0.08));
+  pointer-events: none;
+}
+
+.reel-embed-poster,
+.reel-embed-iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transform: scale(1.1);
+  transform-origin: center center;
+}
+
+.reel-embed-poster {
+  z-index: 0;
+  object-fit: cover;
+  object-position: center;
+}
+
+.reel-embed-iframe {
+  z-index: 1;
+  border: 0;
+  background: #05070b;
+}
+
+.lazy-media {
+  opacity: 0.18;
+  transition: opacity 220ms ease, transform 260ms ease;
+}
+
+.lazy-media.is-loaded {
+  opacity: 1;
+}
+
+.reel-card[data-active-media="true"] .reel-embed-poster {
+  opacity: 0.08;
+  transform: scale(1.14);
+}
+
+.reel-media-link {
+  position: absolute;
+  inset: 0;
+  display: block;
+  color: inherit;
+}
+
+.reel-media-link::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(6, 9, 14, 0.08), rgba(5, 7, 11, 0.58)),
+    linear-gradient(120deg, rgba(255, 76, 207, 0.08), rgba(104, 246, 255, 0.1));
 }
 
 .photo-card {
@@ -925,6 +1031,7 @@ figcaption {
 .carousel-meta {
   position: absolute;
   inset: auto 1rem 1rem 1rem;
+  z-index: 3;
   padding: 1rem 1.05rem 1.05rem;
   border-radius: var(--radius-md);
   background:
@@ -933,16 +1040,53 @@ figcaption {
   backdrop-filter: blur(16px);
 }
 
+.reel-card .carousel-meta {
+  inset: auto auto 0.9rem 50%;
+  transform: translateX(-50%);
+  width: min(calc(100% - 1.8rem), 17.5rem);
+  padding: 0.8rem 0.84rem 0.82rem;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  background:
+    linear-gradient(180deg, rgba(14, 19, 27, 0.34), rgba(8, 11, 17, 0.52)),
+    rgba(255, 255, 255, 0.026);
+  box-shadow:
+    0 12px 30px rgba(0, 0, 0, 0.19),
+    inset 0 1px 0 rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(24px) saturate(135%);
+  -webkit-backdrop-filter: blur(24px) saturate(135%);
+}
+
+.reel-card .carousel-meta span {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  margin: 0;
+  min-height: 0;
+  color: var(--pink);
+  font-size: 0.72rem;
+  line-height: 1.25;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  font-weight: 700;
+}
+
 .carousel-meta span {
-  color: var(--cyan);
+  color: var(--pink);
   font-size: 0.72rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
 .carousel-meta h3 {
-  margin: 0.45rem 0 0;
-  font-size: 1.32rem;
+  margin: 0.42rem 0 0;
+  font-size: 1.24rem;
+  line-height: 1.12;
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  min-height: calc(1.24rem * 1.12 * 2);
 }
 
 .carousel-meta p {
@@ -951,27 +1095,53 @@ figcaption {
 }
 
 .reel-card .carousel-meta p {
-  margin-top: 0.42rem;
-}
-
-.photo-card .carousel-meta {
-  inset: auto 0.8rem 0.8rem 0.8rem;
-  max-width: min(74%, 19rem);
-  padding: 0.7rem 0.82rem 0.76rem;
-}
-
-.photo-card .carousel-meta span {
-  font-size: 0.68rem;
-}
-
-.photo-card .carousel-meta p {
-  margin-top: 0.34rem;
-  font-size: 0.94rem;
-  line-height: 1.38;
+  margin-top: 0.5rem;
+  font-size: 0.92rem;
+  line-height: 1.42;
   display: -webkit-box;
   overflow: hidden;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 2;
+  min-height: 0;
+}
+
+.reel-card .carousel-meta h3 {
+  display: none;
+}
+
+.reel-card .carousel-meta strong {
+  display: none;
+}
+
+.photo-card .carousel-meta {
+  inset: auto auto 0.9rem 50%;
+  transform: translateX(-50%);
+  width: min(calc(100% - 1.8rem), 17.5rem);
+  padding: 0.76rem 0.84rem 0.84rem;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  background:
+    linear-gradient(180deg, rgba(14, 19, 27, 0.34), rgba(8, 11, 17, 0.52)),
+    rgba(255, 255, 255, 0.026);
+  box-shadow:
+    0 12px 30px rgba(0, 0, 0, 0.19),
+    inset 0 1px 0 rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(24px) saturate(135%);
+  -webkit-backdrop-filter: blur(24px) saturate(135%);
+}
+
+.photo-card .carousel-meta span {
+  font-size: 0.72rem;
+}
+
+.photo-card .carousel-meta p {
+  margin-top: 0.42rem;
+  font-size: 0.92rem;
+  line-height: 1.42;
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  min-height: calc(0.92rem * 1.42 * 2);
 }
 
 .photo-placeholder {
@@ -1373,7 +1543,7 @@ code {
   }
 
   .photo-card .carousel-meta {
-    max-width: min(72%, 18rem);
+    width: min(calc(100% - 1.8rem), 16.75rem);
   }
 }
 
@@ -1614,7 +1784,9 @@ code {
   }
 
   .carousel-meta {
-    inset: auto 0.75rem 0.75rem 0.75rem;
+    inset: auto auto 0.75rem 50%;
+    transform: translateX(-50%);
+    width: min(calc(100% - 1.5rem), 15.6rem);
     padding: 0.74rem 0.82rem 0.82rem;
   }
 
@@ -1628,8 +1800,8 @@ code {
   }
 
   .photo-card .carousel-meta {
-    max-width: min(78%, 15.5rem);
-    padding: 0.62rem 0.72rem 0.7rem;
+    width: min(calc(100% - 1.5rem), 15rem);
+    padding: 0.68rem 0.76rem 0.76rem;
   }
 
   .contact-intro p {
@@ -1756,7 +1928,7 @@ code {
   }
 
   .photo-card .carousel-meta {
-    max-width: min(80%, 14.5rem);
+    width: min(calc(100% - 1.4rem), 14rem);
   }
 
   .contact-block a {
@@ -1877,6 +2049,37 @@ code {
 
   .section {
     padding-top: 3rem;
+  }
+
+  .carousel-track-reels,
+  .carousel-track-photos {
+    grid-auto-columns: minmax(240px, 40vw);
+  }
+
+  .reel-card {
+    min-height: 260px;
+  }
+
+  .photo-card {
+    min-height: 300px;
+  }
+
+  .carousel-meta {
+    width: min(calc(100% - 1.2rem), 12.8rem);
+    padding: 0.62rem 0.72rem 0.72rem;
+  }
+
+  .photo-card .carousel-meta {
+    width: min(calc(100% - 1.2rem), 12.6rem);
+  }
+
+  .carousel-meta span {
+    font-size: 0.64rem;
+  }
+
+  .carousel-meta p {
+    font-size: 0.84rem;
+    line-height: 1.34;
   }
 }
 

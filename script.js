@@ -10,18 +10,18 @@ const portfolioConfig = {
   }
 };
 
-const heroVideo = document.querySelector("#hero-video");
-const playlistButtons = [...document.querySelectorAll(".playlist-item")];
 const contactForm = document.querySelector("#contact-form");
 const socialLinksContainer = document.querySelector("#social-links");
 const headerSocialsContainer = document.querySelector("#header-socials");
+const reelsTrack = document.querySelector("#reels-track");
 const buttons = [...document.querySelectorAll(".button")];
 const animatedButtons = [...document.querySelectorAll(".button.button-trace")];
 const carouselTracks = [...document.querySelectorAll("[data-carousel-track]")];
 const carouselButtons = [...document.querySelectorAll(".carousel-arrow")];
 const navLinks = [...document.querySelectorAll(".site-nav a")];
 const carouselLoopState = new WeakMap();
-let videoObserver;
+let lazyImageObserver;
+let lazyEmbedObserver;
 
 const socialMeta = [
   { key: "instagram", label: "Instagram", icon: "icon-instagram" },
@@ -31,119 +31,533 @@ const socialMeta = [
   { key: "linkedin", label: "LinkedIn", icon: "icon-linkedin" }
 ];
 
+const lazyPlaceholder =
+  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3E%3Crect width='4' height='5' fill='%23070b12'/%3E%3C/svg%3E";
+
+const youtubePortfolioUrls = [
+  "https://youtu.be/ev7EIgz6dJY",
+  "https://youtu.be/7w_gru17HaM",
+  "https://youtu.be/z6aa1N2Swz4",
+  "https://youtu.be/nHJ6-JmA2n4",
+  "https://youtu.be/qfSjemQORHw",
+  "https://youtu.be/lshflGPY8No",
+  "https://youtu.be/KN2eVsQF1yk",
+  "https://youtube.com/shorts/rOsloXLhuS8",
+  "https://youtube.com/shorts/ZpB5iTG0-nw",
+  "https://youtube.com/shorts/5Qsm_uifxgc",
+  "https://youtube.com/shorts/cnW7qkP2VPg",
+  "https://youtube.com/shorts/totjpDHeUh4",
+  "https://youtube.com/shorts/n__Wbh7A9uM",
+  "https://youtube.com/shorts/Ob4usvPjTBM",
+  "https://youtube.com/shorts/JRuWjhBC_uo",
+  "https://youtube.com/shorts/shu6ARrV2-Y",
+  "https://youtube.com/shorts/8n1304fVahE",
+  "https://youtube.com/shorts/31IU6OI26_w",
+  "https://youtube.com/shorts/9ROyVC7Rn80",
+  "https://youtube.com/shorts/B2FhvdYkiAM",
+  "https://youtube.com/shorts/JiideAN1q2A",
+  "https://youtube.com/shorts/52VRwf7hcFk",
+  "https://youtube.com/shorts/hX7ZeoNUcWA",
+  "https://youtube.com/shorts/TXHyjJ0rygI",
+  "https://youtube.com/shorts/yL7eLAdg3CI",
+  "https://youtube.com/shorts/pd56PvBOClU",
+  "https://youtube.com/shorts/65j3FlGxeRo",
+  "https://youtube.com/shorts/jyzjcfE5d7k",
+  "https://youtube.com/shorts/CPhqGJOHJK0",
+  "https://youtube.com/shorts/kYJ8qYedLOI"
+];
+
 let traceIdCounter = 0;
 let buttonResizeObserver;
 
-function setHeroVideo(src, button) {
-  if (!heroVideo || !src) return;
-
-  const currentSource = heroVideo.querySelector("source");
-  if (!currentSource) return;
-
-  if (currentSource.getAttribute("src") === src) {
-    playVideo(heroVideo);
-    playlistButtons.forEach((item) => item.classList.toggle("is-active", item === button));
-    return;
+const reelCopyOverrides = {
+  ev7EIgz6dJY: {
+    title: "Cobra Lounge Live",
+    description: "Live music coverage with raw stage energy."
+  },
+  "7w_gru17HaM": {
+    title: "Christmas Kisses",
+    description: "Soft holiday mood with warm romantic tones."
+  },
+  z6aa1N2Swz4: {
+    title: "Champagne and the Stars",
+    description: "Glow, nightlife texture, and celebration energy."
+  },
+  "nHJ6-JmA2n4": {
+    title: "Michangelo",
+    description: "Character-led portrait work with strong presence."
+  },
+  qfSjemQORHw: {
+    title: "Numb",
+    description: "Dark, emotional pacing with immersive texture."
+  },
+  lshflGPY8No: {
+    title: "Teach Me Jahreal",
+    description: "Music-led visuals cut to rhythm and performance."
+  },
+  KN2eVsQF1yk: {
+    title: "Unit Strength Powerlifting",
+    description: "Strength, discipline, and explosive movement."
+  },
+  rOsloXLhuS8: {
+    title: "Puff Puff Party",
+    description: "Party energy, late-night mood, and crowd motion."
+  },
+  "ZpB5iTG0-nw": {
+    title: "The Walk",
+    description: "Confidence, motion, and clean street framing."
+  },
+  "5Qsm_uifxgc": {
+    title: "Mr Kimchi",
+    description: "Food and brand detail with punchy pacing."
+  },
+  cnW7qkP2VPg: {
+    title: "Taekwondo Championship",
+    description: "Fast sports coverage built on speed and impact."
+  },
+  totjpDHeUh4: {
+    title: "Lovin' On Me BTS",
+    description: "Behind-the-scenes motion and on-set energy."
+  },
+  n__Wbh7A9uM: {
+    title: "Nachos",
+    description: "Food texture and close detail in quick cuts."
+  },
+  Ob4usvPjTBM: {
+    title: "Lovin' On Me",
+    description: "Sharp performance pacing with attitude."
+  },
+  JRuWjhBC_uo: {
+    title: "Lost In Thought",
+    description: "Reflective mood, stillness, and calm pacing."
+  },
+  "shu6ARrV2-Y": {
+    title: "Corvette",
+    description: "Sleek car detail with bold motion."
+  },
+  "8n1304fVahE": {
+    title: "For The Immigrants",
+    description: "Emotion, identity, and purposeful framing."
+  },
+  "31IU6OI26_w": {
+    title: "Cyber Cryptic",
+    description: "Experimental digital mood with darker tones."
+  },
+  "9ROyVC7Rn80": {
+    title: "Felipe Music Video",
+    description: "Artist-focused visuals cut to rhythm."
+  },
+  B2FhvdYkiAM: {
+    title: "Chicago Intro",
+    description: "Chicago atmosphere, movement, and urban detail."
+  },
+  JiideAN1q2A: {
+    title: "Flower Expo 2025",
+    description: "Color, detail, and event atmosphere."
+  },
+  "52VRwf7hcFk": {
+    title: "Floridas Nature",
+    description: "Natural light, calm motion, and atmosphere."
+  },
+  hX7ZeoNUcWA: {
+    title: "Chicago Rain",
+    description: "Rain, reflections, and moody street texture."
+  },
+  TXHyjJ0rygI: {
+    title: "Chicago Bands",
+    description: "Live band energy and crowd reaction."
+  },
+  yL7eLAdg3CI: {
+    title: "Butterfly Sanctuary",
+    description: "Soft color, motion, and quiet nature detail."
+  },
+  pd56PvBOClU: {
+    title: "Bar On Buena",
+    description: "Venue mood, space, and nightlife energy."
+  },
+  "65j3FlGxeRo": {
+    title: "2025 Year-End",
+    description: "A fast recap full of momentum."
+  },
+  jyzjcfE5d7k: {
+    title: "Moon Rules Appy - Hate It",
+    description: "Raw, darker music visuals with attitude."
+  },
+  CPhqGJOHJK0: {
+    title: "Khepri Cafe Grand Opening",
+    description: "Opening-day crowd, brand energy, and atmosphere."
+  },
+  kYJ8qYedLOI: {
+    title: "All American Rejects Pop-Up",
+    description: "Surprise performance energy and crowd reaction."
   }
+};
 
-  currentSource.setAttribute("src", src);
-  heroVideo.load();
-  playVideo(heroVideo);
-
-  playlistButtons.forEach((item) => item.classList.toggle("is-active", item === button));
-}
-
-function playVideo(video) {
-  if (!video) return;
-
-  video.muted = true;
-  video.defaultMuted = true;
-  video.playsInline = true;
-  video.setAttribute("muted", "");
-  video.setAttribute("playsinline", "");
-  video.setAttribute("autoplay", "");
-  video.play().catch(() => {});
-}
-
-function primeAutoplay(video) {
-  if (!video) return;
-
-  playVideo(video);
-  video.addEventListener("loadeddata", () => playVideo(video), { once: true });
-  video.addEventListener("canplay", () => playVideo(video), { once: true });
-}
-
-function getAutoplayVideos() {
-  return [...document.querySelectorAll("video[autoplay]")];
-}
-
-function getReelVideos() {
-  return [...document.querySelectorAll(".reel-card video")];
-}
-
-function pauseVideo(video) {
-  if (!video) return;
-
+function extractYouTubeId(url) {
   try {
-    video.pause();
-  } catch (_) {}
+    const parsed = new URL(url);
+    const host = parsed.hostname.replace(/^www\./, "");
+
+    if (host === "youtu.be") {
+      return parsed.pathname.slice(1).split("/")[0];
+    }
+
+    if (host.endsWith("youtube.com")) {
+      if (parsed.pathname.startsWith("/shorts/")) {
+        return parsed.pathname.split("/")[2] || "";
+      }
+
+      if (parsed.pathname.startsWith("/embed/")) {
+        return parsed.pathname.split("/")[2] || "";
+      }
+
+      if (parsed.searchParams.get("v")) {
+        return parsed.searchParams.get("v") || "";
+      }
+    }
+  } catch (_) {
+    return "";
+  }
+
+  return "";
 }
 
-function updateManagedVideoState(video) {
-  if (!video) return;
-
-  if (document.hidden) {
-    pauseVideo(video);
-    return;
-  }
-
-  if (video.id === "hero-video") {
-    playVideo(video);
-    return;
-  }
-
-  if (video.dataset.inView === "true") {
-    playVideo(video);
-    return;
-  }
-
-  pauseVideo(video);
+function buildYouTubeEmbedSrc(id) {
+  const origin = encodeURIComponent(window.location.origin);
+  return `https://www.youtube.com/embed/${id}?autoplay=1&mute=1&playsinline=1&loop=1&playlist=${id}&controls=0&modestbranding=1&rel=0&iv_load_policy=3&enablejsapi=1&origin=${origin}`;
 }
 
-function setupVideoPlayback() {
-  getAutoplayVideos().forEach((video) => {
-    if (!video.hasAttribute("preload")) {
-      video.setAttribute("preload", video.id === "hero-video" ? "auto" : "metadata");
+function buildYouTubeWatchUrl(id) {
+  return `https://www.youtube.com/watch?v=${id}`;
+}
+
+function buildYouTubeThumbnail(id) {
+  return `https://img.youtube.com/vi/${id}/hqdefault.jpg`;
+}
+
+function getReelCopy(id, fallbackTitle, fallbackDescription) {
+  return reelCopyOverrides[id] || {
+    title: fallbackTitle,
+    description: fallbackDescription
+  };
+}
+
+function buildReelEntries() {
+  let featureCount = 0;
+  let shortCount = 0;
+
+  return youtubePortfolioUrls
+    .map((url) => {
+      const id = extractYouTubeId(url);
+      const isShort = url.includes("/shorts/");
+
+      if (!id) {
+        return null;
+      }
+
+      if (isShort) {
+        shortCount += 1;
+      } else {
+        featureCount += 1;
+      }
+
+      return {
+        id,
+        url: buildYouTubeWatchUrl(id),
+        label: isShort ? "Social Short" : "Featured Video",
+        ...getReelCopy(
+          id,
+          isShort
+          ? `Short Form ${String(shortCount).padStart(2, "0")}`
+          : `Featured Edit ${String(featureCount).padStart(2, "0")}`,
+          isShort
+          ? "Autoplaying YouTube short preview built to keep the site lighter on bandwidth."
+          : "Autoplaying YouTube embed that keeps the portfolio cinematic without hosting the video on the site."
+        )
+      };
+    })
+    .filter(Boolean);
+}
+
+function createReelCard(entry) {
+  const card = document.createElement("article");
+  const shell = document.createElement("div");
+  const poster = document.createElement("img");
+  const meta = document.createElement("div");
+
+  card.className = "carousel-card reel-card";
+  card.dataset.youtubeId = entry.id;
+  card.dataset.youtubeTitle = entry.title;
+
+  shell.className = "reel-media-shell";
+
+  poster.className = "reel-embed-poster lazy-media";
+  poster.src = lazyPlaceholder;
+  poster.dataset.lazySrc = buildYouTubeThumbnail(entry.id);
+  poster.alt = `${entry.title} video thumbnail`;
+  poster.loading = "lazy";
+  poster.decoding = "async";
+
+  meta.className = "carousel-meta";
+  meta.innerHTML = `
+    <span>${entry.title}</span>
+    <p>${entry.description}</p>
+  `;
+
+  shell.append(poster);
+  card.append(shell, meta);
+
+  return card;
+}
+
+function renderReels() {
+  if (!reelsTrack) return;
+  if (reelsTrack.children.length) return;
+
+  const fragment = document.createDocumentFragment();
+
+  buildReelEntries().forEach((entry) => {
+    fragment.append(createReelCard(entry));
+  });
+
+  reelsTrack.replaceChildren(fragment);
+}
+
+function syncStaticReelCopy() {
+  const entriesById = new Map(buildReelEntries().map((entry) => [entry.id, entry]));
+  const reelCards = [...document.querySelectorAll(".reel-card[data-youtube-id]")];
+
+  reelCards.forEach((card) => {
+    const entry = entriesById.get(card.dataset.youtubeId);
+    if (!entry) return;
+
+    card.dataset.youtubeTitle = entry.title;
+
+    const labelNode = card.querySelector(".carousel-meta span");
+    const titleNode = card.querySelector(".carousel-meta h3");
+    const descriptionNode = card.querySelector(".carousel-meta p");
+    const creditNode = card.querySelector(".carousel-meta strong");
+    const poster = card.querySelector(".reel-embed-poster");
+
+    if (labelNode) {
+      labelNode.textContent = entry.title;
+    }
+
+    if (titleNode) {
+      titleNode.remove();
+    }
+
+    if (descriptionNode) {
+      descriptionNode.textContent = entry.description;
+    }
+
+    if (creditNode) {
+      creditNode.remove();
+    }
+
+    if (poster) {
+      poster.alt = `${entry.title} video thumbnail`;
+      poster.dataset.lazySrc = buildYouTubeThumbnail(entry.id);
+    }
+  });
+}
+
+function loadLazyImage(image) {
+  if (!image || image.dataset.lazyLoaded === "true" || image.dataset.lazyRequested === "true") return;
+
+  const nextSrc = image.dataset.lazySrc;
+  if (!nextSrc) return;
+
+  image.dataset.lazyRequested = "true";
+
+  image.addEventListener(
+    "load",
+    () => {
+      image.classList.add("is-loaded");
+      image.dataset.lazyLoaded = "true";
+      delete image.dataset.lazyRequested;
+    },
+    { once: true }
+  );
+
+  image.addEventListener(
+    "error",
+    () => {
+      delete image.dataset.lazyRequested;
+    },
+    { once: true }
+  );
+
+  image.src = nextSrc;
+}
+
+function setupLazyImages() {
+  const lazyImages = [...document.querySelectorAll("img[data-lazy-src]")];
+
+  lazyImages.forEach((image) => {
+    loadLazyImage(image);
+  });
+}
+
+function mountReelEmbed(card, loading = "lazy") {
+  if (!card || card.dataset.activeMedia === "true") return;
+
+  const shell = card.querySelector(".reel-media-shell");
+  const videoId = card.dataset.youtubeId;
+  const videoTitle = card.dataset.youtubeTitle || `${portfolioConfig.brandName} portfolio video`;
+  const poster = card.querySelector("img[data-lazy-src]");
+
+  if (!shell || !videoId) return;
+
+  loadLazyImage(poster);
+
+  const iframe = document.createElement("iframe");
+  iframe.className = "reel-embed-iframe";
+  iframe.src = buildYouTubeEmbedSrc(videoId);
+  iframe.title = videoTitle;
+  iframe.loading = loading;
+  iframe.referrerPolicy = "strict-origin-when-cross-origin";
+  iframe.allow = "autoplay; encrypted-media; picture-in-picture; web-share";
+  iframe.allowFullscreen = true;
+
+  shell.append(iframe);
+  card.dataset.activeMedia = "true";
+}
+
+function unmountReelEmbed(card) {
+  if (!card) return;
+
+  const iframe = card.querySelector(".reel-embed-iframe");
+  if (iframe) {
+    iframe.remove();
+  }
+
+  card.dataset.activeMedia = "false";
+}
+
+function setupReelEmbeds() {
+  const reelCards = [...document.querySelectorAll(".reel-card[data-youtube-id]")];
+  if (!reelCards.length) return;
+
+  reelCards.forEach((card) => {
+    const poster = card.querySelector("img[data-lazy-src]");
+    if (poster) {
+      loadLazyImage(poster);
     }
   });
 
-  if (videoObserver) {
-    videoObserver.disconnect();
-  }
+  const queueSync = () => {
+    window.requestAnimationFrame(syncVisibleReels);
+  };
 
-  videoObserver = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        const video = entry.target;
-        video.dataset.inView = entry.isIntersecting && entry.intersectionRatio >= 0.45 ? "true" : "false";
-        updateManagedVideoState(video);
-      });
-    },
-    { threshold: [0, 0.2, 0.45, 0.7] }
-  );
+  reelsTrack?.addEventListener("scroll", queueSync, { passive: true });
+  window.addEventListener("scroll", queueSync, { passive: true });
+  window.addEventListener("resize", queueSync);
+  window.addEventListener("pageshow", queueSync);
+  window.addEventListener("load", queueSync, { once: true });
 
-  getReelVideos().forEach((video) => {
-    video.dataset.inView = "false";
-    video.addEventListener("loadeddata", () => updateManagedVideoState(video), { once: true });
-    video.addEventListener("canplay", () => updateManagedVideoState(video), { once: true });
-    videoObserver.observe(video);
-    updateManagedVideoState(video);
+  queueSync();
+  window.setTimeout(queueSync, 160);
+  window.setTimeout(queueSync, 420);
+}
+
+function getCardVisibilityRatio(card) {
+  if (!card) return 0;
+
+  const rect = card.getBoundingClientRect();
+  const viewportWidth = window.innerWidth || document.documentElement.clientWidth || 0;
+  const viewportHeight = window.innerHeight || document.documentElement.clientHeight || 0;
+  const visibleWidth = Math.max(0, Math.min(rect.right, viewportWidth) - Math.max(rect.left, 0));
+  const visibleHeight = Math.max(0, Math.min(rect.bottom, viewportHeight) - Math.max(rect.top, 0));
+  const totalArea = Math.max(rect.width * rect.height, 1);
+  const visibleArea = visibleWidth * visibleHeight;
+
+  return visibleArea / totalArea;
+}
+
+function syncVisibleReels() {
+  const reelCards = [...document.querySelectorAll(".reel-card[data-youtube-id]")];
+
+  reelCards.forEach((card) => {
+    const poster = card.querySelector("img[data-lazy-src]");
+    const visibilityRatio = getCardVisibilityRatio(card);
+
+    if (visibilityRatio > 0.01) {
+      loadLazyImage(poster);
+    }
+
+    if (visibilityRatio >= 0.04) {
+      mountReelEmbed(card, "eager");
+      return;
+    }
+
+    unmountReelEmbed(card);
+  });
+}
+
+function setupLazyEmbeds() {
+  const reelCards = [...document.querySelectorAll(".reel-card[data-youtube-id]")];
+
+  reelCards.forEach((card) => {
+    const poster = card.querySelector("img[data-lazy-src]");
+    if (!poster) return;
+
+    if (poster.dataset.lazySrc?.includes("https://i.ytimg.com/vi/")) {
+      poster.dataset.lazySrc = poster.dataset.lazySrc.replace(
+        "https://i.ytimg.com/vi/",
+        "https://img.youtube.com/vi/"
+      );
+    }
   });
 
-  if (heroVideo) {
-    heroVideo.dataset.inView = "true";
-    primeAutoplay(heroVideo);
-    updateManagedVideoState(heroVideo);
+  if (lazyEmbedObserver) {
+    lazyEmbedObserver.disconnect();
+  }
+
+  lazyEmbedObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        const card = entry.target;
+        const poster = card.querySelector("img[data-lazy-src]");
+        const shouldActivate = entry.isIntersecting && entry.intersectionRatio >= 0.04;
+
+        if (entry.isIntersecting) {
+          loadLazyImage(poster);
+        }
+
+        if (shouldActivate) {
+          mountReelEmbed(card);
+          return;
+        }
+
+        unmountReelEmbed(card);
+      });
+    },
+    { rootMargin: "320px", threshold: [0, 0.02, 0.04, 0.1, 0.25, 0.5] }
+  );
+
+  reelCards.forEach((card) => {
+    card.dataset.activeMedia = "false";
+    lazyEmbedObserver.observe(card);
+  });
+
+  if (reelsTrack) {
+    let syncFrame = 0;
+    const queueSync = () => {
+      window.cancelAnimationFrame(syncFrame);
+      syncFrame = window.requestAnimationFrame(syncVisibleReels);
+    };
+
+    reelsTrack.addEventListener("scroll", queueSync, { passive: true });
+    window.addEventListener("scroll", queueSync, { passive: true });
+    window.addEventListener("resize", queueSync);
+    window.addEventListener("pageshow", queueSync);
+    window.addEventListener("load", queueSync, { once: true });
+    queueSync();
+    window.setTimeout(queueSync, 180);
+    window.setTimeout(queueSync, 500);
+  } else {
+    window.requestAnimationFrame(syncVisibleReels);
   }
 }
 
@@ -301,6 +715,8 @@ function getCarouselLoopMetrics(track) {
 }
 
 function normalizeCarouselLoop(track) {
+  if (track.dataset.skipLoop === "true") return;
+
   const metrics = getCarouselLoopMetrics(track);
   if (!metrics) return;
 
@@ -324,6 +740,11 @@ function normalizeCarouselLoop(track) {
 }
 
 function setupInfiniteCarousel(track) {
+  if (track.dataset.skipLoop === "true") {
+    track.dataset.carouselLoopReady = "true";
+    return;
+  }
+
   if (track.dataset.carouselLoopReady === "true") return;
 
   const cards = getOriginalCarouselCards(track);
@@ -656,44 +1077,13 @@ function updateButtonOutlines() {
   });
 }
 
+renderReels();
+syncStaticReelCopy();
 decorateButtons();
 setupCarousels();
 setupNavHighlight();
-setupVideoPlayback();
-
-playlistButtons.forEach((button) => {
-  button.addEventListener("click", () => setHeroVideo(button.dataset.video, button));
-});
-
-if (heroVideo) {
-  const heroRotation = [
-    "assets/videos/cyber-real-local.mp4",
-    "assets/videos/store-promotion-local.mp4",
-    "assets/videos/flower-expo-2025-reel-local.mp4"
-  ];
-
-  let currentIndex = 0;
-  window.setInterval(() => {
-    currentIndex = (currentIndex + 1) % heroRotation.length;
-    const nextSrc = heroRotation[currentIndex];
-    const matchedButton = playlistButtons.find((button) => button.dataset.video === nextSrc);
-    setHeroVideo(nextSrc, matchedButton);
-  }, 10000);
-}
-
-document.addEventListener("visibilitychange", () => {
-  if (!document.hidden) {
-    getAutoplayVideos().forEach(updateManagedVideoState);
-  }
-});
-
-window.addEventListener("pageshow", () => {
-  getAutoplayVideos().forEach(updateManagedVideoState);
-});
-
-window.addEventListener("resize", () => {
-  getAutoplayVideos().forEach(updateManagedVideoState);
-});
+setupLazyImages();
+setupReelEmbeds();
 
 if (contactForm) {
   contactForm.addEventListener("submit", (event) => {
