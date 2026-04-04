@@ -19,6 +19,7 @@ const animatedButtons = [...document.querySelectorAll(".button.button-trace")];
 const carouselTracks = [...document.querySelectorAll("[data-carousel-track]")];
 const carouselButtons = [...document.querySelectorAll(".carousel-arrow")];
 const navLinks = [...document.querySelectorAll(".site-nav a")];
+const sectionJumpLinks = [...document.querySelectorAll('a[href^="#"]')];
 const carouselLoopState = new WeakMap();
 let lazyImageObserver;
 let lazyEmbedObserver;
@@ -301,7 +302,6 @@ function createReelCard(entry) {
   meta.className = "carousel-meta";
   meta.innerHTML = `
     <span>${entry.title}</span>
-    <p>${entry.description}</p>
   `;
 
   shell.append(poster);
@@ -348,7 +348,7 @@ function syncStaticReelCopy() {
     }
 
     if (descriptionNode) {
-      descriptionNode.textContent = entry.description;
+      descriptionNode.remove();
     }
 
     if (creditNode) {
@@ -571,9 +571,11 @@ function setupNavHighlight() {
   if (!navLinks.length) return;
 
   const header = document.querySelector(".site-header");
+  const topSection = document.querySelector("#top");
   const portfolioSection = document.querySelector("#films");
   const contactSection = document.querySelector("#contact");
   const sectionTargets = {
+    "#top": topSection,
     "#films": portfolioSection,
     "#contact": contactSection
   };
@@ -595,12 +597,40 @@ function setupNavHighlight() {
     }, 900);
   };
 
-  navLinks.forEach((link) => {
-    link.addEventListener("click", () => {
-      const href = link.getAttribute("href");
-      if (href) {
-        lockNavTo(href);
-      }
+  const getCleanUrl = () => `${window.location.pathname}${window.location.search}`;
+
+  const clearAddressBarHash = () => {
+    if (!window.location.hash) return;
+    window.history.replaceState(null, "", getCleanUrl());
+  };
+
+  const scrollToSectionHash = (targetHash, behavior = "smooth") => {
+    if (targetHash === "#top") {
+      window.scrollTo({ top: 0, behavior });
+      return;
+    }
+
+    const targetSection = sectionTargets[targetHash];
+    if (!targetSection) return;
+
+    const headerOffset = header?.offsetHeight || 0;
+    const targetTop = window.scrollY + targetSection.getBoundingClientRect().top - headerOffset - 16;
+
+    window.scrollTo({
+      top: Math.max(targetTop, 0),
+      behavior
+    });
+  };
+
+  sectionJumpLinks.forEach((link) => {
+    const href = link.getAttribute("href");
+    if (!href || !sectionTargets[href]) return;
+
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+      lockNavTo(href);
+      clearAddressBarHash();
+      scrollToSectionHash(href);
     });
   });
 
@@ -668,6 +698,16 @@ function setupNavHighlight() {
 
   applyHashHighlight();
   syncNavFromViewport();
+
+  if (window.location.hash && sectionTargets[window.location.hash]) {
+    const initialHash = window.location.hash;
+    window.requestAnimationFrame(() => {
+      scrollToSectionHash(initialHash, "auto");
+      clearAddressBarHash();
+    });
+  } else if (window.location.hash) {
+    clearAddressBarHash();
+  }
 
   window.addEventListener("hashchange", () => {
     applyHashHighlight();

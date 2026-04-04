@@ -15,7 +15,7 @@
     <link rel="apple-touch-icon" href="assets/images/favicon-neon.png" />
     <link rel="preconnect" href="https://www.youtube.com" />
     <link rel="preconnect" href="https://i.ytimg.com" />
-    <link rel="stylesheet" href="styles.css?v=20260330-portfolio-14" />
+    <link rel="stylesheet" href="styles.css?v=20260404-portfolio-26" />
   </head>
   <body>
     <svg class="icon-defs" aria-hidden="true" focusable="false">
@@ -47,6 +47,11 @@
       <symbol id="icon-mail" viewBox="0 0 24 24">
         <path
           d="M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Zm17 3.24-7.35 5.88a1 1 0 0 1-1.3 0L4 8.24V17h16V8.24Zm-1.44-1.24H5.44L12 12.25 18.56 7Z"
+        />
+      </symbol>
+      <symbol id="icon-location" viewBox="0 0 24 24">
+        <path
+          d="M12 21s-6.5-5.58-6.5-11.32A6.5 6.5 0 1 1 18.5 9.68C18.5 15.42 12 21 12 21Zm0-8.1a3.22 3.22 0 1 0 0-6.44 3.22 3.22 0 0 0 0 6.44Z"
         />
       </symbol>
       <symbol id="icon-arrow" viewBox="0 0 24 24">
@@ -92,6 +97,7 @@
               allow="autoplay; encrypted-media; picture-in-picture; web-share"
               allowfullscreen
             ></iframe>
+            <div class="hero-video-fade" aria-hidden="true"></div>
             <div class="hero-scrim"></div>
             <div class="hero-grid"></div>
             <div class="hero-copy">
@@ -109,6 +115,11 @@
                 Branded visuals, event coverage, social reels, and polished edits made with real
                 feeling, strong storytelling, and attention to detail.
               </p>
+
+              <div class="hero-location" aria-label="Location">
+                <svg aria-hidden="true"><use href="#icon-location"></use></svg>
+                <span>Sarasota / St. Petersburg, Florida</span>
+              </div>
 
               <div class="hero-actions">
                 <a class="button button-quote button-trace" href="#contact">Get a Quote</a>
@@ -581,7 +592,7 @@
               <article class="carousel-card photo-card">
                 <img class="photo-focus-high" src="assets/photos/skyline-signal.jpg" alt="Night skyline with bright beam of light from a skyscraper" loading="lazy" />
                 <div class="carousel-meta">
-                  <span>City Nights</span>
+                  <span>Cityscape</span>
                   <p>Skyline contrast in a neon night palette.</p>
                 </div>
               </article>
@@ -589,7 +600,7 @@
               <article class="carousel-card photo-card">
                 <img class="photo-focus-high" src="assets/photos/neon-window.jpg" alt="Tall building at night with a single magenta-lit window" loading="lazy" />
                 <div class="carousel-meta">
-                  <span>City Nights</span>
+                  <span>Cityscape</span>
                   <p>Minimal geometry with one magenta accent.</p>
                 </div>
               </article>
@@ -597,7 +608,7 @@
               <article class="carousel-card photo-card">
                 <img class="photo-focus-high" src="assets/photos/chicago-beam.jpg" alt="Chicago skyline at night with a bright beam of light rising into the sky" loading="lazy" />
                 <div class="carousel-meta">
-                  <span>Chicago Beam</span>
+                  <span>Cityscape</span>
                   <p>Late-night skyline cut by a single bright beam.</p>
                 </div>
               </article>
@@ -605,7 +616,7 @@
               <article class="carousel-card photo-card">
                 <img class="photo-focus-high" src="assets/photos/billboard-trails.jpg" alt="Night city scene with rooftop billboard and colorful highway light trails" loading="lazy" />
                 <div class="carousel-meta">
-                  <span>Billboard Trails</span>
+                  <span>Cityscape</span>
                   <p>Light streaks sliding past an industrial rooftop.</p>
                 </div>
               </article>
@@ -613,7 +624,7 @@
               <article class="carousel-card photo-card">
                 <img src="assets/photos/rooftop-drift.jpg" alt="Blurred figure on a rooftop with a glowing city skyline in the background" loading="lazy" />
                 <div class="carousel-meta">
-                  <span>Rooftop Drift</span>
+                  <span>Cityscape</span>
                   <p>Soft motion against a glowing city skyline.</p>
                 </div>
               </article>
@@ -621,7 +632,7 @@
               <article class="carousel-card photo-card">
                 <img class="photo-focus-high" src="assets/photos/city-light-trails.jpg" alt="Night cityscape with long light trails running through the street below" loading="lazy" />
                 <div class="carousel-meta">
-                  <span>City Motion</span>
+                  <span>Cityscape</span>
                   <p>Long exposure trails pulling through the night.</p>
                 </div>
               </article>
@@ -629,7 +640,7 @@
               <article class="carousel-card photo-card">
                 <img src="assets/photos/bus-stop-glow.jpg" alt="Bus shelter advertisement at night covered in red graffiti and glowing blue light" loading="lazy" />
                 <div class="carousel-meta">
-                  <span>Street Glow</span>
+                  <span>Cityscape</span>
                   <p>A bright bus stop graphic lighting the sidewalk.</p>
                 </div>
               </article>
@@ -637,7 +648,7 @@
               <article class="carousel-card photo-card">
                 <img class="photo-focus-high" src="assets/photos/art-deco-spire.jpg" alt="Tall art deco building photographed from below against a bright sky" loading="lazy" />
                 <div class="carousel-meta">
-                  <span>Art Deco</span>
+                  <span>Architecture</span>
                   <p>A clean architectural frame aimed into the sky.</p>
                 </div>
               </article>
@@ -677,7 +688,7 @@
               <article class="carousel-card photo-card">
                 <img class="photo-focus-high" src="assets/photos/ocean-balcony-view.jpg" alt="Modern balcony overlooking the city and water in bright daylight" loading="lazy" />
                 <div class="carousel-meta">
-                  <span>Ocean Balcony</span>
+                  <span>Interiors</span>
                   <p>Open terrace lines with bright coastal views.</p>
                 </div>
               </article>
@@ -685,7 +696,7 @@
               <article class="carousel-card photo-card">
                 <img class="photo-focus-high" src="assets/photos/modern-kitchen-island.jpg" alt="Modern kitchen with a long island and warm wood accents" loading="lazy" />
                 <div class="carousel-meta">
-                  <span>Modern Kitchen</span>
+                  <span>Interiors</span>
                   <p>Clean interior lines with warm wood texture.</p>
                 </div>
               </article>
@@ -693,7 +704,7 @@
               <article class="carousel-card photo-card">
                 <img src="assets/photos/midnight-vette.jpg" alt="Night automotive photograph of a Corvette in the rain" loading="lazy" />
                 <div class="carousel-meta">
-                  <span>Automotive</span>
+                  <span>Cars</span>
                   <p>Rain-lit bodywork and cold headlights like a film still.</p>
                 </div>
               </article>
@@ -701,7 +712,7 @@
               <article class="carousel-card photo-card">
                 <img src="assets/photos/helmet-study.jpg" alt="Close-up detail photograph of a helmet resting on a dashboard" loading="lazy" />
                 <div class="carousel-meta">
-                  <span>Automotive Detail</span>
+                  <span>Cars</span>
                   <p>Gear, reflections, and sharp design lines.</p>
                 </div>
               </article>
@@ -709,7 +720,7 @@
               <article class="carousel-card photo-card">
                 <img src="assets/photos/blue-corvette-detail.jpg" alt="Blue Corvette photographed from a low angle at an expo" loading="lazy" />
                 <div class="carousel-meta">
-                  <span>Automotive</span>
+                  <span>Cars</span>
                   <p>Bold color and event energy in one frame.</p>
                 </div>
               </article>
@@ -717,7 +728,7 @@
               <article class="carousel-card photo-card">
                 <img src="assets/photos/cybertruck-neon.jpg" alt="Cybertruck photographed with stylized graffiti behind it" loading="lazy" />
                 <div class="carousel-meta">
-                  <span>Automotive</span>
+                  <span>Cars</span>
                   <p>Hard lines and reflective surfaces that stop the scroll.</p>
                 </div>
               </article>
@@ -725,7 +736,7 @@
               <article class="carousel-card photo-card">
                 <img src="assets/photos/matte-green-build.jpg" alt="Low-angle photograph of a matte green custom car at an outdoor show" loading="lazy" />
                 <div class="carousel-meta">
-                  <span>Green Build</span>
+                  <span>Cars</span>
                   <p>Low angle automotive shot with bold custom styling.</p>
                 </div>
               </article>
@@ -733,7 +744,7 @@
               <article class="carousel-card photo-card">
                 <img src="assets/photos/bronze-wheel-detail.jpg" alt="Close-up of a bronze wheel on a green performance car" loading="lazy" />
                 <div class="carousel-meta">
-                  <span>Wheel Detail</span>
+                  <span>Cars</span>
                   <p>Bronze spokes and tire texture in tight focus.</p>
                 </div>
               </article>
@@ -741,7 +752,7 @@
               <article class="carousel-card photo-card">
                 <img src="assets/photos/blue-interior.jpg" alt="View into the blue interior of a sports car through the open door" loading="lazy" />
                 <div class="carousel-meta">
-                  <span>Blue Interior</span>
+                  <span>Cars</span>
                   <p>Cockpit detail framed through the open door.</p>
                 </div>
               </article>
@@ -757,7 +768,7 @@
               <article class="carousel-card photo-card">
                 <img src="assets/photos/expo-rider.jpg" alt="Motorbike rider posing at an outdoor expo event" loading="lazy" />
                 <div class="carousel-meta">
-                  <span>Expo Rider</span>
+                  <span>Motorsports</span>
                   <p>Event action paused mid-gesture on the bike.</p>
                 </div>
               </article>
@@ -781,7 +792,7 @@
               <article class="carousel-card photo-card">
                 <img class="photo-focus-portrait" src="assets/photos/dj-portrait-blue.jpg" alt="Portrait of a DJ wearing headphones in cool blue light" loading="lazy" />
                 <div class="carousel-meta">
-                  <span>DJ Portrait</span>
+                  <span>Portraits</span>
                   <p>Focused blue-lit portrait in the middle of the set.</p>
                 </div>
               </article>
@@ -789,7 +800,7 @@
               <article class="carousel-card photo-card">
                 <img class="photo-focus-high" src="assets/photos/party-candid.jpg" alt="Candid party portrait with a sharply focused subject in a crowded room" loading="lazy" />
                 <div class="carousel-meta">
-                  <span>Crowd Candid</span>
+                  <span>Portraits</span>
                   <p>A sharp party portrait inside the crowd.</p>
                 </div>
               </article>
@@ -797,7 +808,7 @@
               <article class="carousel-card photo-card">
                 <img src="assets/photos/mixer-closeup.jpg" alt="Close-up of hands working a DJ mixer in low light" loading="lazy" />
                 <div class="carousel-meta">
-                  <span>Mixer Detail</span>
+                  <span>Nightlife</span>
                   <p>Close control detail with warm console light.</p>
                 </div>
               </article>
@@ -805,7 +816,7 @@
               <article class="carousel-card photo-card">
                 <img src="assets/photos/table-spread.jpg" alt="Table filled with plates of raw meat and seafood in warm restaurant lighting" loading="lazy" />
                 <div class="carousel-meta">
-                  <span>Table Spread</span>
+                  <span>Food</span>
                   <p>Warm food detail ready for the grill.</p>
                 </div>
               </article>
@@ -813,7 +824,7 @@
               <article class="carousel-card photo-card">
                 <img src="assets/photos/sizzling-plate.jpg" alt="Close-up of steaming food plated in warm ambient light" loading="lazy" />
                 <div class="carousel-meta">
-                  <span>Sizzling Plate</span>
+                  <span>Food</span>
                   <p>Steam and warmth rising off the dish.</p>
                 </div>
               </article>
@@ -821,7 +832,7 @@
               <article class="carousel-card photo-card">
                 <img class="photo-focus-midhigh" src="assets/photos/butterfly-pause.jpg" alt="Butterfly resting beside blue nectar in green foliage" loading="lazy" />
                 <div class="carousel-meta">
-                  <span>Nature Detail</span>
+                  <span>Nature</span>
                   <p>Layered greens with a quiet burst of color.</p>
                 </div>
               </article>
@@ -829,7 +840,7 @@
               <article class="carousel-card photo-card">
                 <img src="assets/photos/coast-sunset.jpg" alt="Sun setting over a beach with orange and pink light across the sky" loading="lazy" />
                 <div class="carousel-meta">
-                  <span>Sunset Coast</span>
+                  <span>Nature</span>
                   <p>Warm horizon color over a quiet shoreline.</p>
                 </div>
               </article>
@@ -900,6 +911,6 @@
       </main>
     </div>
 
-    <script src="script.js?v=20260330-portfolio-13"></script>
+    <script src="script.js?v=20260404-portfolio-26"></script>
   </body>
 </html>
