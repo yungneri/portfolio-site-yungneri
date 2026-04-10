@@ -65,7 +65,9 @@ const youtubePortfolioUrls = [
   "https://youtube.com/shorts/65j3FlGxeRo",
   "https://youtube.com/shorts/jyzjcfE5d7k",
   "https://youtube.com/shorts/CPhqGJOHJK0",
-  "https://youtube.com/shorts/kYJ8qYedLOI"
+  "https://youtube.com/shorts/kYJ8qYedLOI",
+  "https://youtu.be/j5ofvtqWQQ4",
+  "https://youtube.com/shorts/2pBMOpu7fU8"
 ];
 
 let traceIdCounter = 0;
@@ -191,6 +193,14 @@ const reelCopyOverrides = {
   kYJ8qYedLOI: {
     title: "All American Rejects Pop-Up",
     description: "Surprise performance energy and crowd reaction."
+  },
+  j5ofvtqWQQ4: {
+    title: "Natural Dent Testimonial",
+    description: "Clean testimonial-focused storytelling with a polished feel."
+  },
+  "2pBMOpu7fU8": {
+    title: "Med Spa",
+    description: "Polished beauty and wellness visuals with a clean commercial feel."
   }
 };
 
